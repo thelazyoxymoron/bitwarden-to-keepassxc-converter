@@ -9,4 +9,4 @@ You need to have [golang](https://go.dev/doc/install) installed.
 ## Usage
 - Create an export from bitwarden: Tools -> Export vault -> .json format
 - Run the script from the main folder: `go run main.go <exported_file.json>`
-- Import the generated file into KeepassXC, check "First line has field names", match and appropriate columns and proceed.
+- Import the generated file into KeepassXC, check "First line has field names", match appropriate columns and proceed.
