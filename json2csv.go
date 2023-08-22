@@ -11,6 +11,7 @@ import (
 type BitwardenLogin struct {
     Username string `json:"username"`
     Password string `json:"password"`
+    TOTP string `json:"totp"`
     URLs []struct {
         URL string `json:"uri"`
     } `json:"uris"`
@@ -75,7 +76,7 @@ func main() {
 	defer csvWriter.Flush()
 
 	// Write the header row to the CSV file
-	header := []string{"Group", "Name", "Username", "Password", "URL", "Notes"}
+	header := []string{"Group", "Name", "Username", "Password", "URL", "Notes", "TOTP"}
 	err = csvWriter.Write(header)
 	if err != nil {
 		fmt.Println("Error writing CSV header:", err)
@@ -86,7 +87,7 @@ func main() {
 	for _, item := range bwExport.Items {
         // Export secure notes
         if (item.Type == 2) {
-            row := []string{"Secure Note", item.Name, "", "", "", item.Notes}
+            row := []string{"Secure Note", item.Name, "", "", "", item.Notes, ""}
             err = csvWriter.Write(row)
             if err != nil {
 				fmt.Println("Error writing CSV row:", err)
@@ -105,6 +106,7 @@ func main() {
                 "Number: " + item.Card.Number + "\n" +
                 "Expiry: " + item.Card.ExpiryMonth + "-" + item.Card.ExpiryYear + "\n" +
                 "CVV: " + item.Card.Cvv + "\n\n\n" + item.Notes,
+                "",
             }
 		    err = csvWriter.Write(row)
 		    if err != nil {
@@ -121,6 +123,7 @@ func main() {
                     item.Login.Password, 
                     url.URL, 
                     item.Notes,
+                    item.Login.TOTP,
                 }
 		    	err = csvWriter.Write(row)
 		    	if err != nil {
