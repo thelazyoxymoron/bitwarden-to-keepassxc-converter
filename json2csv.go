@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"strings"
 )
 
 type BitwardenLogin struct {
@@ -45,7 +46,7 @@ func main() {
 	}
 
 	jsonFilePath := os.Args[1]
-	csvFilePath := "filtered_bitwarden.csv"
+	csvFilePath := strings.Replace(jsonFilePath, ".json", ".csv", 1)
 
 	// Read the JSON file
 	jsonData, err := os.ReadFile(jsonFilePath)
