@@ -41,7 +41,7 @@ type BitwardenExport struct {
 func main() {
 	// Check if the correct number of arguments is provided
 	if len(os.Args) != 2 {
-		fmt.Println("Usage: go run main.go <jsonFilePath>")
+		fmt.Println("Usage: go run json2csv.go <jsonFilePath>")
 		return
 	}
 
